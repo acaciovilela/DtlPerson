@@ -1,0 +1,24 @@
+<?php
+$title = $this->translate('Editar Profissao');
+$this->headTitle($title);
+$form = $this->form;
+$form->setAttribute('action', $this->url('dtl-admin/dtl-occupation/edit', array('id' => $this->id)));
+$form->prepare();
+?>
+<div class="modal-header">
+    <h3 class="modal-title"><i class="fa fa-edit"></i> <?php echo $this->escapeHtml($title); ?></h3>
+</div>
+<?php echo $this->form()->openTag($form); ?>
+<div class="modal-body">
+    <?php $occupation = $form->get('occupation'); ?>
+    <?php echo $this->formRow($occupation->get('id')); ?>
+    <div class="form-group">
+        <?php echo $this->formLabel($occupation->get('name')); ?>
+        <?php echo $this->formText($occupation->get('name')); ?>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> <?php echo $this->translate('Salvar'); ?></button>
+    <button class="btn btn-danger" type="button" data-dismiss="modal"><i class="fa fa-times"></i> <?php echo $this->translate('Cancelar'); ?></button>
+</div>
+<?php echo $this->form()->closeTag(); ?>

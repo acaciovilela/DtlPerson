@@ -1,0 +1,56 @@
+<?php
+$title = $this->translate('Profissoes');
+$this->placeholder('title')->set($title);
+$this->placeholder('title-icon')->set('<i class="typcn typcn-group"></i>')
+?>
+
+<div class='card'>
+    <h5 class="card-header">
+        <i class="fa fa-briefcase"></i>
+        <?php echo $this->translate('Profissoes'); ?>
+        <a data-toggle="modal" data-target="#dtlCrudModal" class="btn btn-outline-success float-right btn-modal btn-sm" href="<?php echo $this->url('dtl-admin/dtl-occupation/add'); ?>"><i class="fa fa-plus-circle"></i>&nbsp;<?php echo $this->translate('Novo'); ?></a>
+    </h5>
+    <div class='card-body'>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><?php echo $this->translate('PROFISSAO'); ?></th>
+                    <th class="text-right btn-group-sm">
+
+                    </th>
+                </tr>
+            </thead>
+            <?php if (count($this->occupations)): ?>
+                <tbody>
+                    <?php foreach ($this->occupations as $occupation): ?>
+                        <tr>
+                            <td><?php echo $this->escapeHtml($occupation->getName()); ?></td>
+                            <td>
+                                <div class="btn-group float-right">
+                                    <a data-toggle='modal' data-target='#dtlCrudModal' href="<?php echo $this->url('dtl-admin/dtl-occupation/edit', array('id' => $occupation->getId())); ?>" class="btn btn-info btn-sm icon-only"><i class="fa fa-edit fa-fw"></i></a>
+                                    <a data-toggle="modal" data-target="#dtlCrudModal" href="<?php echo $this->url('dtl-admin/dtl-occupation/delete', array('id' => $occupation->getId())); ?>" class="btn btn-danger btn-sm icon-only"><i class="fa fa-times fa-fw"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            <?php else: ?>
+                <tbody>
+                    <tr>
+                        <td colspan="10" class="alert alert-info text-center"><?php echo $this->translate('Não há registros no banco de dados.') ?></td>
+                    </tr>
+                </tbody>
+            <?php endif; ?>
+        </table>
+    </div>
+    <div class="card-footer">
+        <?php
+        $paginationInfo = $this->placeholder('pagination');
+        if (!isset($paginationInfo->route)) {
+            $paginationInfo->route = 'dtl-admin/dtl-occupation';
+            $paginationInfo->params = [];
+        }
+        ?>
+        <?php echo $this->paginationControl($this->occupations, 'Sliding', 'layout/pagination'); ?>
+    </div>
+</div>
